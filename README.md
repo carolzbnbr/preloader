@@ -1,6 +1,8 @@
 
 
-# Xambon.PreLoader, as the name implies, it helps you to pre load data used by your xamarin forms app page gets called.
+# Xambon.PreLoader for Xamarin Forms
+
+## As the name implies, it helps you to pre load data used by your xamarin forms app page gets called.
 
 
 ## What does that mean?
