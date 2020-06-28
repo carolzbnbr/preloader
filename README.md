@@ -19,14 +19,44 @@ What *PreLoader* does is to load/deserialize the data before a page navigation m
 ## Getting Started
 
 
-Xambon.PreLoader depends on PRISM for Dependency Injection, so first thing you need to do is to register your Service, you should do it on your app.cs class in your shared project:
+Xambon.PreLoader depends on PRISM for Dependency Injection, so first thing we need to do is to register the **RegisterPreLoaderService** along with our own PreLoaders on the App.cs class of our shared project:
 
 ```csharp
  protected override void RegisterTypes(IContainerRegistry containerRegistry)
 {
     ...
     containerRegistry.RegisterPreLoaderService();
+    containerRegistry.RegisterPreLoader<EmployeesPreLoader>();
+    containerRegistry.RegisterPreLoader<OtherPreLoader1>();
+    containerRegistry.RegisterPreLoader<OtherPreLoader2>();
+    containerRegistry.RegisterPreLoader<OtherPreLoader3>();
+    ...
 }
+```
+
+A *PreLoader* is a class that we must implement for every data we need and is responsible for loading our data a disk cache or remote api. For every data retrived it will be kept **as is** aka **deserialized**, to a memory cache.
+
+In order to do that, we need to implment the class **IPreLoader** like as follow:
+
+```csharp
+ public class EmployeesPreLoader : IPreLoader
+    {
+       ///http://dummy.restapiexample.com/api/v1/employees
+    
+        private readonly IEmployeeService employeeService;
+
+        public EmployeesPreLoader(IEmployeeService  employeeService)
+        {
+            this.employeeService = employeeService;
+        }
+
+        public async Task<PreLoadResult> GetDataAsync(PreLoadParameters parameters)
+        {
+            var response = await employeeService.GetRemoteEmployees(true, true, false, true, cancellationTokenSource.Token);
+
+            return new PreLoadResult(TimeSpan.FromMinutes(3), response);
+        }
+    }
 ```
 
 
