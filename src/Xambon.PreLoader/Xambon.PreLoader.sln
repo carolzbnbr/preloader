@@ -1,0 +1,23 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xambon.PreLoader", "Xambon.PreLoader\Xambon.PreLoader.csproj", "{298E627E-FA1B-4BEC-9667-6A0508ABD90C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xambon.PreLoader.Extensions", "Xambon.PreLoader.Extensions\Xambon.PreLoader.Extensions.csproj", "{84EE537C-CA43-40BE-8E61-2B72A01B128D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{298E627E-FA1B-4BEC-9667-6A0508ABD90C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{298E627E-FA1B-4BEC-9667-6A0508ABD90C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{298E627E-FA1B-4BEC-9667-6A0508ABD90C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{298E627E-FA1B-4BEC-9667-6A0508ABD90C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84EE537C-CA43-40BE-8E61-2B72A01B128D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84EE537C-CA43-40BE-8E61-2B72A01B128D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84EE537C-CA43-40BE-8E61-2B72A01B128D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84EE537C-CA43-40BE-8E61-2B72A01B128D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
