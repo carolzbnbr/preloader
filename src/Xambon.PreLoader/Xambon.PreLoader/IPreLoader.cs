@@ -1,13 +1,22 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace Xambon.PreLoader
 {
-    public interface IPreLoader
+
+    public interface IPreLoader<TResponse> 
     {
         /// <summary>
-        /// Retorna os dados que devem deverão ser armazenados via PreLoader.
+        /// Tempo de vida do objeto retornado em <see cref="GetData(PreLoadParameters)"/> na memória.
         /// </summary>
         /// <returns></returns>
-        Task<PreLoadResult> GetDataAsync(PreLoadParameters parameters);
+        TimeSpan GetDataExpiration();
+
+        /// <summary>
+        /// Busca os dados para popular o cache do PreLoader e retorna em um Observable.
+        /// </summary>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        IObservable<TResponse> GetData(PreLoadParameters parameters);
     }
 }

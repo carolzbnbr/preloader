@@ -7,10 +7,7 @@
 
   <ItemGroup>
    <!-- <PackageReference Include="Xamarin.Forms" Version="4.5.0.495" /> -->
-    <PackageReference Include="Prism.Forms" Version="7.2.0.1422" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="3.1.5" />
     <PackageReference Include="System.Reactive" Version="4.1.5" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Xambon.PreLoader\Xambon.PreLoader.csproj" />

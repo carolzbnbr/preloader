@@ -4,8 +4,8 @@
     <id>Xambon.PreLoader</id>
     <version>1.0.0</version>
     <title>Xambon.PreLoader</title>
-    <authors>xambon</authors>
-    <owners>xambon</owners>
+    <authors>carolzbnbr</authors>
+    <owners>carolzbnbr</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/xambon/preloader</projectUrl>
@@ -13,6 +13,6 @@
     <description>PreLoader helps you to pre load your app data before a page navigation is requested, speeding up your Xamarin.Forms pages load performance.</description>
     <releaseNotes>Initial Version</releaseNotes>
     <copyright>Copyright 2020 Xambon (Ana Carolina Zambon)</copyright>
-    <tags>preloader xambon.preloader data pre loader prism navigation app performance xamarin forms navigation</tags>
+    <tags>preloader xambon.preloader data pre loader prism navigation app performance xamarin forms navigation carolzbnbr </tags>
   </metadata>
 </package>

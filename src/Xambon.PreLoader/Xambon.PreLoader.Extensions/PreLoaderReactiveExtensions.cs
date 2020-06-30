@@ -1,30 +1,22 @@
 ﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
 using System.Linq;
-using System.Reactive;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Reactive.Threading.Tasks;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace Xambon.PreLoader.Extensions
 {
-    public static class PreLoaderAkavacheExtensions
+    public static class PreLoaderReactiveExtensions
     {
         private static EventLoopScheduler Scheduler;
-        static PreLoaderAkavacheExtensions()
+        static PreLoaderReactiveExtensions()
         {
             Scheduler = new EventLoopScheduler(ts => new Thread(ts) { IsBackground = true });
         }
-    
 
 
         /// <summary>
@@ -34,40 +26,29 @@ namespace Xambon.PreLoader.Extensions
         /// <param name="preLoaderService"></param>
         /// <param name="preLoaderName"></param>
         /// <returns></returns>
-        public static  IObservable<T> GetOrInvokePreLoader<T>(this IPreLoaderService preLoaderService, string preLoaderName, PreLoadParameters parameters) where T : class
+        public static IObservable<T> GetOrInvokePreLoader<T>(this IPreLoaderService preLoaderService, string preLoaderName, PreLoadParameters parameters = null) where T : class
         {
 
-            //        urls.ToObservable()
-            //.Select(url => Observable.FromAsync(async () => {
-            //    var bytes = await this.DownloadImage(url);
-            //    var image = await this.ParseImage(bytes);
-            //    return image;
-            //}))
-            //.Merge(6 /*at a time*/);
-
-            var fetch = Observable.Start(() => preLoaderService.GetPreLoadedData<T>(preLoaderName))
+            var fetch = Observable.Start<T>(() => PreLoaderCore.Instance.GetCachedPreLoadedData<T>(preLoaderName), Scheduler)
             .SelectMany(response => Observable.FromAsync(async () =>
             {
-                if (response != default(T))
+                if (response != null)
                 {
                     return response;
                 }
-
+                Debug.WriteLine($"====PreLoaderReactiveExtensions.GetOrInvokePreLoaderObservable() - Thread Id: {Thread.CurrentThread.ManagedThreadId}");
                 //Forca a execucao do pre-loader...
-                var observable = preLoaderService.InvokePreLoader(preLoaderName, parameters).ToObservable(Scheduler);//.ObserveOn(Scheduler);
-                var result = await observable.LastOrDefaultAsync();
+                var observable = PreLoaderCore.Instance.InvokePreLoaderWithObservable<T>(preLoaderName, parameters);
+
+                await observable.ForEachAsync(x => Debug.WriteLine(x));
 
                 //tenta obter o resultado do preloader...
-                response = preLoaderService.GetPreLoadedData<T>(preLoaderName);
+                response = PreLoaderCore.Instance.GetCachedPreLoadedData<T>(preLoaderName);
 
-               
                 return response;
+
             }));
-
-
             return fetch;
-
-
         }
 
         /// <summary>
@@ -78,9 +59,9 @@ namespace Xambon.PreLoader.Extensions
         /// <param name="preLoaderName"></param>
         /// <param name="fetchFunc"></param>
         /// <returns></returns>
-        public static async Task<T> GetOrInvokePreLoader<T>(this IPreLoaderService preLoaderService, PreLoadParameters parameters, string preLoaderName) where T : class
+        public static async Task<T> GetOrInvokePreLoaderAsync<T>(this IPreLoaderService preLoaderService, PreLoadParameters parameters, string preloaderName) where T : class
         {
-            var response = preLoaderService.GetPreLoadedData<T>(preLoaderName);
+            var response = PreLoaderCore.Instance.GetCachedPreLoadedData<T>(preloaderName);
             if (response != default(T))
             {
                 return response;
@@ -88,14 +69,21 @@ namespace Xambon.PreLoader.Extensions
             else //null
             {
 
-                //Forca a execucao do pre-loader...
-                await preLoaderService.InvokePreLoader(preLoaderName, parameters);
+                //Dispara a execucao do Preloader da implementacao do usuario
+                var observable = PreLoaderCore.Instance.InvokePreLoaderWithObservable<T>(preloaderName, parameters);
+                observable.Subscribe(f => Debug.WriteLine($"Invoked {nameof(PreLoaderReactiveExtensions)}.{nameof(PreLoaderReactiveExtensions.GetOrInvokePreLoaderAsync)}"));
 
-                //tenta obter o resultado do preloader...
-                response = preLoaderService.GetPreLoadedData<T>(preLoaderName);
+                await observable.ForEachAsync(x => Debug.WriteLine(x));
+
+                //tenta obter o resultado resultante da execucao do preloader...
+                response = PreLoaderCore.Instance.GetCachedPreLoadedData<T>(preloaderName);
 
                 return response;
             }
         }
+
+
+
+
     }
 }
