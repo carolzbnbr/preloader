@@ -10,19 +10,18 @@ namespace Xambon.PreLoader
         public void InvokePreLoader<T>(string preloaderName, PreLoadParameters parameters = null)
         {
             var observable = PreLoaderCore.Instance.InvokePreLoaderWithObservable<T>(preloaderName, parameters);
-           // observable.Subscribe(f => Debug.WriteLine($"Invoked {nameof(PreLoaderCore)}.{nameof(PreLoaderCore.InvokePreLoaderWithObservable)}"));
         }
 
 
-        public T GetPreLoadedData<T>(string name)
+        public T GetPreLoadedData<T>(string name, PreLoadParameters parameters = null)
         {
-            return PreLoaderCore.Instance.GetCachedPreLoadedData<T>(name);
+            return PreLoaderCore.Instance.GetCachedPreLoadedData<T>(name, parameters);
         }
 
-        public bool TryGetPreLoadedData<T>(string name, out T value)
+        public bool TryGetPreLoadedData<T>(string name, out T value, PreLoadParameters parameters = null)
         {
             T valueInternal;
-            var result = PreLoaderCore.Instance.TryGetPreLoadedData<T>(name, out valueInternal);
+            var result = PreLoaderCore.Instance.TryGetPreLoadedData<T>(name, parameters, out valueInternal);
 
             value = valueInternal;
             return result;

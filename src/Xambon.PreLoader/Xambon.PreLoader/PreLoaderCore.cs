@@ -94,57 +94,60 @@ namespace Xambon.PreLoader
 
         internal IObservable<T> InvokePreLoaderWithObservable<T>(string preloaderName, PreLoadParameters parameters)
         {
-            var key = GetKey(preloaderName);
 
-            if (!preloadersContainer.TryGetValue(preloaderName, out var type))
-            {
-                throw new NotSupportedException($"{preloaderName} foi encontrado no container. Crie um novo PreLoader e Registre-o usando o comando {nameof(PreLoaderExtensions.RegisterPreLoader)}(\"{preloaderName}\") na classe App.Cs");
-            }
+            var instance = GetPreLoaderInstance<T>(preloaderName);
+
+            string preloadedCacheKey = GetPreLoaderKey(preloaderName, instance, parameters);
+
+            var expiration = instance.GetDataExpiration();
+
 
             if (parameters == null)
             {
                 parameters = new PreLoadParameters();
             }
-            var instance = (IPreLoader<T>)containerResolver.Resolve(type, GetKey(type.FullName));
-            if (instance == null)
-            {
-                throw new NotSupportedException($"{type.FullName} não foi registrado no container. Crie um novo PreLoader e Registre-o usando o comando {nameof(PreLoaderExtensions.RegisterPreLoader)}(\"{preloaderName}\") na classe App.Cs ");
-            }
-
-            var expiration = instance.GetDataExpiration();
+            //var observable = instance.GetData(parameters);
             var observable = Observable.Start(() => instance.GetData(parameters), Scheduler.Default)
                 .Merge()
-                //.ObserveOnDispatcher()
                 .SubscribeOn(new NewThreadScheduler());
 
             observable.Subscribe(f =>
             {
                 var result = new PreLoadResult(expiration, f);
-                SetPreLoadedResult(preloaderName, result);
+                SetPreLoadedResult(preloadedCacheKey, result);
             });
 
             return observable;
         }
 
-        internal  Task InvokePreLoader<T>(string preloaderName, PreLoadParameters parameters)
+        private string GetPreLoaderKey<T>(string preloaderName, IPreLoader<T> instance, PreLoadParameters parameters)
         {
-            var key = GetKey(preloaderName);
-
-            if (!preloadersContainer.TryGetValue(preloaderName, out var type))
-            {
-                throw new NotSupportedException($"Nenhum item {preloaderName} foi encontrado no container. Utilize App.{nameof(PreLoaderExtensions.RegisterPreLoader)}");
-            }
-
             if (parameters == null)
             {
                 parameters = new PreLoadParameters();
             }
-            var instance = (IPreLoader<T>)containerResolver.Resolve(type, GetKey(type.FullName));
-            if (instance == null)
+            string preloadedCacheKey = preloaderName;
+            if (instance is IPreLoaderKey instanceKey)
             {
-                throw new NotSupportedException($"Nenhuma Implementação de \"{preloaderName}\" foi registrado no container. Utilize App.{nameof(PreLoaderExtensions.RegisterPreLoader)}");
+                preloadedCacheKey = $"{preloaderName}:{instanceKey.GetKey(parameters)}";
             }
 
+            return preloadedCacheKey;
+        }
+
+
+        internal  Task InvokePreLoader<T>(string preloaderName, PreLoadParameters parameters)
+        {
+            var key = GetKey(preloaderName);
+           
+
+            var instance = GetPreLoaderInstance<T>(preloaderName);
+
+            string preloadedCacheKey = GetPreLoaderKey(preloaderName, instance, parameters);
+            if (parameters == null)
+            {
+                parameters = new PreLoadParameters();
+            }
             var observable = (IObservable<T>)instance.GetData(parameters);
 
             var expiration = instance.GetDataExpiration();
@@ -152,13 +155,28 @@ namespace Xambon.PreLoader
             observable.Subscribe(f =>
             {
                 var result = new PreLoadResult(expiration, f);
-                SetPreLoadedResult(preloaderName, result);
+                SetPreLoadedResult(preloadedCacheKey, result);
             });
 
             //await observable.ForEachAsync(x => Debug.WriteLine(x));
             return Task.CompletedTask;
         }
 
+
+        private IPreLoader<T> GetPreLoaderInstance<T>(string preloaderName)
+        {
+            if (!preloadersContainer.TryGetValue(preloaderName, out var type))
+            {
+                throw new NotSupportedException($"Nenhum item {preloaderName} foi encontrado no container. Utilize App.{nameof(PreLoaderExtensions.RegisterPreLoader)}");
+            }
+            var instance = (IPreLoader<T>)containerResolver.Resolve(type, GetKey(type.FullName));
+            if (instance == null)
+            {
+                throw new NotSupportedException($"Nenhuma Implementação de \"{preloaderName}\" foi registrado no container. Utilize App.{nameof(PreLoaderExtensions.RegisterPreLoader)}");
+            }
+
+            return instance;
+        }
 
 
         public IMemoryCache MemoryCache
@@ -181,11 +199,11 @@ namespace Xambon.PreLoader
 
         internal  void Remove(string preloaderName)
         {
-            var memoryKey = $"{preloaderName}-Memory";
-            MemoryCache.Remove(memoryKey);
-            preLoaderCachedKeys.Remove(memoryKey);
+          
+            MemoryCache.Remove(preloaderName);
+            preLoaderCachedKeys.Remove(preloaderName);
         }
-
+    
 
         private List<string> preLoaderCachedKeys = new List<string>();
 
@@ -193,28 +211,28 @@ namespace Xambon.PreLoader
         {
             if (result != null)
             {
-                var memoryKey = $"{preloaderName}-Memory";
-                preLoaderCachedKeys.Add(memoryKey);
-                MemoryCache.Set<object>(memoryKey, result.Data, new MemoryCacheEntryOptions { AbsoluteExpirationRelativeToNow = result.AbsoluteExpirationRelativeToNow });
+               
+                preLoaderCachedKeys.Add(preloaderName);
+                MemoryCache.Set<object>(preloaderName, result.Data, new MemoryCacheEntryOptions { AbsoluteExpirationRelativeToNow = result.AbsoluteExpirationRelativeToNow });
             }
         }
 
-     
-        internal  T GetCachedPreLoadedData<T>(string name)
+        internal  T GetCachedPreLoadedData<T>(string preloaderName, PreLoadParameters parameters)
         {
-            var key = GetKey(name);
+          
+            var instance = GetPreLoaderInstance<T>(preloaderName);
 
-            var memoryKey = $"{name}-Memory";
+            string preloadedCacheKey = GetPreLoaderKey(preloaderName, instance, parameters);
 
-            var cachedData = MemoryCache.Get<T>(memoryKey);
+            var cachedData = MemoryCache.Get<T>(preloadedCacheKey);
             return cachedData;
         }
 
 
-        internal  bool TryGetPreLoadedData<T>(string name, out T value)
+        internal  bool TryGetPreLoadedData<T>(string name, PreLoadParameters parameters, out T value)
         {
             value = default(T);
-            var cachedData = GetCachedPreLoadedData<T>(name);
+            var cachedData = GetCachedPreLoadedData<T>(name, parameters);
 
             if (cachedData  != null)
             {

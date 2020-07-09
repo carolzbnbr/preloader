@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="List of Countries"
+             x:Class="XamarinPreLoaderSample.Views.CountriesPage">
+
+  <Grid HorizontalOptions="CenterAndExpand" Padding="20" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="90" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0"  HorizontalTextAlignment="Center">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="PreLoaded: "></Span>
+                        <Span Text="{Binding UsePreLoader}" FontAttributes="Bold" TextColor="Red"></Span>
+                        <Span Text="&#x0a;"></Span>
+                          <Span Text="Load time: "></Span>
+                          <Span Text="{Binding ElapsedMilliseconds}" FontAttributes="Bold" TextColor="Red" ></Span>
+                          <Span Text=" milliseconds"></Span>
+
+                         <Span Text="&#x0a;"></Span>
+                         <Span Text="Url: "></Span>
+                         <Span Text="{Binding RemoteDataService.RemoteUrl}" FontAttributes="Bold"></Span>
+
+                    </FormattedString>
+                </Label.FormattedText>
+                </Label>
+
+            <CollectionView Grid.Row="1"   x:Name="collectionView"  ItemsSource="{Binding Countries}" SelectionMode="Single" >
+                        <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Vertical" ItemSpacing="5" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout Orientation="Vertical" Padding="0,5,0,5">
+                                    <Label Text="{Binding Name}" FontAttributes="Bold"/>
+                                    <Label Text="{Binding Capital}" TextColor="Red" />
+                                    <Label Text="{Binding Area}" TextColor="Red" />
+                                    <Label Text="{Binding NativeName}" TextColor="Red" />
+                                    <Image Source="{Binding Flag}"/>
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+
+
+  
+</ContentPage>
