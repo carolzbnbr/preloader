@@ -7,7 +7,7 @@ using XamarinPreLoaderSample.Models;
 using XamarinPreLoaderSample.PreLoaders;
 using XamarinPreLoaderSample.Views;
 using Xambon.PreLoader;
-
+using Xambon.PreLoader.Extensions;
 namespace XamarinPreLoaderSample.ViewModels
 {
     public class MainPageViewModel: BindableBase, IInitialize
@@ -16,7 +16,6 @@ namespace XamarinPreLoaderSample.ViewModels
         public INavigationService NavigationService { get; private set; }
         public DelegateCommand<object> RegularPageCommand { get; private set; }
         public DelegateCommand<object> PreloadedPageCommand { get; private set; }
-
 
         public MainPageViewModel(INavigationService navigationService, IPreLoaderService preLoaderService)
         {

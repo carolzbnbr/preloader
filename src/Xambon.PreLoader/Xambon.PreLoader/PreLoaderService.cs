@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Xambon.PreLoader
 {
-    public class PreLoaderService : IPreLoaderService
+    internal class PreLoaderService : IPreLoaderService
     {
 
         public void InvokePreLoader<T>(string preloaderName, PreLoadParameters parameters = null)

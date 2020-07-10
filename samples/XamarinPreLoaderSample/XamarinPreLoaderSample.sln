@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamarinPreLoaderSample.iOS"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamarinPreLoaderSample", "XamarinPreLoaderSample\XamarinPreLoaderSample.csproj", "{AB834D40-A685-49E5-8F21-1233D0D5C54E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xambon.PreLoader", "..\..\Xambon.PreLoader\Xambon.PreLoader\Xambon.PreLoader.csproj", "{ABF52F8D-0DE2-4AB9-9D38-321C0397C753}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,17 +53,5 @@ Global
 		{AB834D40-A685-49E5-8F21-1233D0D5C54E}.Debug|iPhone.Build.0 = Debug|Any CPU
 		{AB834D40-A685-49E5-8F21-1233D0D5C54E}.Release|iPhone.ActiveCfg = Release|Any CPU
 		{AB834D40-A685-49E5-8F21-1233D0D5C54E}.Release|iPhone.Build.0 = Release|Any CPU
-		{ABF52F8D-0DE2-4AB9-9D38-321C0397C753}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ABF52F8D-0DE2-4AB9-9D38-321C0397C753}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ABF52F8D-0DE2-4AB9-9D38-321C0397C753}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ABF52F8D-0DE2-4AB9-9D38-321C0397C753}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ABF52F8D-0DE2-4AB9-9D38-321C0397C753}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{ABF52F8D-0DE2-4AB9-9D38-321C0397C753}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
-		{ABF52F8D-0DE2-4AB9-9D38-321C0397C753}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{ABF52F8D-0DE2-4AB9-9D38-321C0397C753}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
-		{ABF52F8D-0DE2-4AB9-9D38-321C0397C753}.Debug|iPhone.ActiveCfg = Debug|Any CPU
-		{ABF52F8D-0DE2-4AB9-9D38-321C0397C753}.Debug|iPhone.Build.0 = Debug|Any CPU
-		{ABF52F8D-0DE2-4AB9-9D38-321C0397C753}.Release|iPhone.ActiveCfg = Release|Any CPU
-		{ABF52F8D-0DE2-4AB9-9D38-321C0397C753}.Release|iPhone.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

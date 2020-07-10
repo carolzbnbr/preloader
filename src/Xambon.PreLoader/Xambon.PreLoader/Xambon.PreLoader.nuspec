@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
-    <id>xambon.preloader</id>
-    <version>1.0.0.28-pre</version>
+    <id>Xambon.PreLoader</id>
+    <version>1.0.0.29-pre</version>
     <title>PreLoader for Xamarin Forms</title>
     <authors>carolzbnbr</authors>
     <owners>carolzbnbr</owners>

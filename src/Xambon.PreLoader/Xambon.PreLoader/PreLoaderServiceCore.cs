@@ -11,7 +11,7 @@ using Prism.Ioc;
 namespace Xambon.PreLoader
 {
    
-    public class PreLoaderServiceCore
+    internal class PreLoaderServiceCore
     {
         private  IContainerProvider containerResolver;
        
