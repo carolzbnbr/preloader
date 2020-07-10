@@ -6,8 +6,7 @@
 
 ## Sample App - Regular Page Load versus PreLoaded
 
-![Sample App](images/screencast.gif)
-
+![Sample App](https://github.com/carolzbnbr/preloader/blob/master/Images/screencast.gif)
 
 
 ## What does that mean?
