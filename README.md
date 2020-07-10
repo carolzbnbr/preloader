@@ -4,9 +4,6 @@
 
 ## As the name implies, it helps you to pre load data used by your xamarin forms app page gets called.
 
-## Sample App - Regular Page Load versus PreLoaded
-
-![Sample App](https://github.com/carolzbnbr/preloader/blob/master/Images/screencast.gif)
 
 
 ## What does that mean?
@@ -24,6 +21,10 @@ What *PreLoader* does is to load/deserialize the data before a page navigation m
 
 ## nuget Package
 You can add this component to your project by installing/downloading a nuget package  **Xambon.PreLoader** in the nuget package gallery of visual studio.
+
+## Sample App
+The sample app demonstrates a regular page load versus a pre loaded page load by using this component.
+![Sample App](https://github.com/carolzbnbr/preloader/blob/master/Images/screencast.gif)
 
 
 ## Getting Started
