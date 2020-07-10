@@ -27,7 +27,7 @@ namespace Xambon.PreLoader
         /// <param name="containerRegistry"></param>
         /// <param name="preLoaderName">An alias of your preloader implementation. This name must be unique among other preloaders you may have</param>
         /// <returns></returns>
-        public static bool RegisterPreLoader<TPreloader, TResponse>(this IContainerRegistry containerRegistry, string preLoaderName) where TPreloader : IPreLoader<TResponse>
+        public static bool RegisterPreLoader<TPreloader, TResponse>(this IContainerRegistry containerRegistry, string preLoaderName = null) where TPreloader : IPreLoader<TResponse>
         {
             return PreLoaderServiceCore.Instance.RegisterPreLoader<TPreloader, TResponse>(containerRegistry, preLoaderName);
         }

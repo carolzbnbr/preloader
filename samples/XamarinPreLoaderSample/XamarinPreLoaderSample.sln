@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamarinPreLoaderSample.iOS"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamarinPreLoaderSample", "XamarinPreLoaderSample\XamarinPreLoaderSample.csproj", "{AB834D40-A685-49E5-8F21-1233D0D5C54E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xambon.PreLoader", "..\..\src\Xambon.PreLoader\Xambon.PreLoader\Xambon.PreLoader.csproj", "{42B604EB-1071-4245-8402-496C05FF37F3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,5 +55,17 @@ Global
 		{AB834D40-A685-49E5-8F21-1233D0D5C54E}.Debug|iPhone.Build.0 = Debug|Any CPU
 		{AB834D40-A685-49E5-8F21-1233D0D5C54E}.Release|iPhone.ActiveCfg = Release|Any CPU
 		{AB834D40-A685-49E5-8F21-1233D0D5C54E}.Release|iPhone.Build.0 = Release|Any CPU
+		{42B604EB-1071-4245-8402-496C05FF37F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42B604EB-1071-4245-8402-496C05FF37F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42B604EB-1071-4245-8402-496C05FF37F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42B604EB-1071-4245-8402-496C05FF37F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42B604EB-1071-4245-8402-496C05FF37F3}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{42B604EB-1071-4245-8402-496C05FF37F3}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{42B604EB-1071-4245-8402-496C05FF37F3}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{42B604EB-1071-4245-8402-496C05FF37F3}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{42B604EB-1071-4245-8402-496C05FF37F3}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{42B604EB-1071-4245-8402-496C05FF37F3}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{42B604EB-1071-4245-8402-496C05FF37F3}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{42B604EB-1071-4245-8402-496C05FF37F3}.Release|iPhone.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
