@@ -4,6 +4,11 @@
 
 ## As the name implies, it helps you to pre load data used by your xamarin forms app page gets called.
 
+## Sample App - Regular Page Load versus PreLoaded
+
+![Sample App](images/screencast.gif)
+
+
 
 ## What does that mean?
 In a regular Xamarin Forms application, every time a page is loaded (navigated to), some data needs to be loaded from a remote source, or even from a disk, to fill up Xaml's Views.
@@ -15,6 +20,8 @@ We usually load the data thru **View Mode's constructor**, or in methods like **
 The problem relays on the mentioned methods above as it's very expensive to get and deserialize data on then which in turn hang page loads. Also, if your remote rest service is slow, our user experience may also be affected whithout a solution like PreLoader.
 
 What *PreLoader* does is to load/deserialize the data before a page navigation method is called and maintain it in memory for a short period. In other words, it should load data before the a **NavigationService.Navigate()** method called.
+
+
 
 ## nuget Package
 You can add this component to your project by installing/downloading a nuget package  **Xambon.PreLoader** in the nuget package gallery of visual studio.
