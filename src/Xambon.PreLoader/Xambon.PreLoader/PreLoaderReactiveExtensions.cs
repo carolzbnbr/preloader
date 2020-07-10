@@ -29,7 +29,7 @@ namespace Xambon.PreLoader.Extensions
         public static IObservable<T> GetOrInvokePreLoader<T>(this IPreLoaderService preLoaderService, string preLoaderName, PreLoadParameters parameters = null) where T : class
         {
 
-            var fetch = Observable.Start<T>(() => PreLoaderCore.Instance.GetCachedPreLoadedData<T>(preLoaderName, parameters), Scheduler)
+            var fetch = Observable.Start<T>(() => PreLoaderServiceCore.Instance.GetCachedPreLoadedData<T>(preLoaderName, parameters), Scheduler)
             .SelectMany(response => Observable.FromAsync(async () =>
             {
                 if (response != null)
@@ -38,12 +38,12 @@ namespace Xambon.PreLoader.Extensions
                 }
                 Debug.WriteLine($"====PreLoaderReactiveExtensions.GetOrInvokePreLoaderObservable() - Thread Id: {Thread.CurrentThread.ManagedThreadId}");
                 //Forca a execucao do pre-loader...
-                var observable = PreLoaderCore.Instance.InvokePreLoaderWithObservable<T>(preLoaderName, parameters);
+                var observable = PreLoaderServiceCore.Instance.InvokePreLoaderWithObservable<T>(preLoaderName, parameters);
 
                 await observable.ForEachAsync(x => Debug.WriteLine(x));
 
                 //tenta obter o resultado do preloader...
-                response = PreLoaderCore.Instance.GetCachedPreLoadedData<T>(preLoaderName, parameters);
+                response = PreLoaderServiceCore.Instance.GetCachedPreLoadedData<T>(preLoaderName, parameters);
 
                 return response;
 
@@ -61,7 +61,7 @@ namespace Xambon.PreLoader.Extensions
         /// <returns></returns>
         public static async Task<T> GetOrInvokePreLoaderAsync<T>(this IPreLoaderService preLoaderService, string preloaderName, PreLoadParameters parameters = null) where T : class
         {
-            var response = PreLoaderCore.Instance.GetCachedPreLoadedData<T>(preloaderName, parameters);
+            var response = PreLoaderServiceCore.Instance.GetCachedPreLoadedData<T>(preloaderName, parameters);
             if (response != default(T))
             {
                 return response;
@@ -70,13 +70,13 @@ namespace Xambon.PreLoader.Extensions
             {
 
                 //Dispara a execucao do Preloader da implementacao do usuario
-                var observable = PreLoaderCore.Instance.InvokePreLoaderWithObservable<T>(preloaderName, parameters);
+                var observable = PreLoaderServiceCore.Instance.InvokePreLoaderWithObservable<T>(preloaderName, parameters);
                 observable.Subscribe(f => Debug.WriteLine($"Invoked {nameof(PreLoaderReactiveExtensions)}.{nameof(PreLoaderReactiveExtensions.GetOrInvokePreLoaderAsync)}"));
 
                 await observable.ForEachAsync(x => Debug.WriteLine(x));
 
                 //tenta obter o resultado resultante da execucao do preloader...
-                response = PreLoaderCore.Instance.GetCachedPreLoadedData<T>(preloaderName, parameters);
+                response = PreLoaderServiceCore.Instance.GetCachedPreLoadedData<T>(preloaderName, parameters);
 
                 return response;
             }

@@ -9,19 +9,19 @@ namespace Xambon.PreLoader
 
         public void InvokePreLoader<T>(string preloaderName, PreLoadParameters parameters = null)
         {
-            var observable = PreLoaderCore.Instance.InvokePreLoaderWithObservable<T>(preloaderName, parameters);
+            var observable = PreLoaderServiceCore.Instance.InvokePreLoaderWithObservable<T>(preloaderName, parameters);
         }
 
 
         public T GetPreLoadedData<T>(string name, PreLoadParameters parameters = null)
         {
-            return PreLoaderCore.Instance.GetCachedPreLoadedData<T>(name, parameters);
+            return PreLoaderServiceCore.Instance.GetCachedPreLoadedData<T>(name, parameters);
         }
 
         public bool TryGetPreLoadedData<T>(string name, out T value, PreLoadParameters parameters = null)
         {
             T valueInternal;
-            var result = PreLoaderCore.Instance.TryGetPreLoadedData<T>(name, parameters, out valueInternal);
+            var result = PreLoaderServiceCore.Instance.TryGetPreLoadedData<T>(name, parameters, out valueInternal);
 
             value = valueInternal;
             return result;
@@ -33,7 +33,7 @@ namespace Xambon.PreLoader
         /// <param name="preloaderName"></param>
         public void Remove(string preloaderName)
         {
-            PreLoaderCore.Instance.Remove(preloaderName);
+            PreLoaderServiceCore.Instance.Remove(preloaderName);
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace Xambon.PreLoader
         /// </summary>
         public void RemoveAll()
         {
-            PreLoaderCore.Instance.RemoveAll();
+            PreLoaderServiceCore.Instance.RemoveAll();
         }
         
 

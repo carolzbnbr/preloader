@@ -3,6 +3,19 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+    <PackOnBuild>true</PackOnBuild>
+    <PackageVersion>1.0.0-pre</PackageVersion>
+    <Authors>carolzbnbr</Authors>
+    <Copyright>Copyright 2020 carolzbnbr (Ana Carolina Zambon)</Copyright>
+    <DevelopmentDependency>true</DevelopmentDependency>
+    <PackageLicenseUrl>https://github.com/carolzbnbr/preloader/blob/master/LICENSE</PackageLicenseUrl>
+    <Owners>carolzbnbr</Owners>
+    <PackageProjectUrl>https://github.com/carolzbnbr/preloader</PackageProjectUrl>
+    <PackageReleaseNotes>Pre release version</PackageReleaseNotes>
+    <PackageTags>preloader xambon.preloader data pre loader prism navigation app performance xamarin forms navigation carolzbnbr </PackageTags>
+    <Title>PreLoader for Xamarin Forms</Title>
+    <Description>PreLoader helps you to pre load data to memory before user navigates to its destination page, helping to speed up your Xamarin.Forms App's page loading.</Description>
+    <PackageId>xambon.preloader</PackageId>
   </PropertyGroup>
 
   <ItemGroup>

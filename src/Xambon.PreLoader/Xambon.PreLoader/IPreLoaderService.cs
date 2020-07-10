@@ -5,39 +5,42 @@ namespace Xambon.PreLoader
 {
     public interface IPreLoaderService
     {
-        
-        /// <summary>
-        /// In case it does not exists yet, force the load of the preloader and cache its data to memory cache temporarily.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="preloaderName"></param>
-        /// <param name="parameters"></param>
-        void InvokePreLoader<T>(string preloaderName, PreLoadParameters parameters = null);
 
         /// <summary>
-        /// Tenta retornar os dados da ultima execucao do PreLoader, caso haja um.
+        /// Invokes the PreLoader so that the data returned by your preloader are stored in a local memory cache.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="preloaderName"></param>
+        /// <typeparam name="TResponse">Corresponds to the returning type of the your data that your preloader implements</typeparam>
+        /// <param name="preloaderName">An alias of your preloader implementation you want to invoke</param>
+        /// <param name="parameters">optional parameters your preloader should receive</param>
+        /// <remarks>
+        /// The invocaton process initiates your preloader and imediate return the control back to your code. The actual preloader execution is done on another thread.
+        /// </remarks>
+        void InvokePreLoader<TResponse>(string preloaderName, PreLoadParameters parameters = null);
+
+        /// <summary>
+        /// Attempts to return the PreLoader's data from the cache, in case it exists.
+        /// </summary>
+        /// <typeparam name="TResponse">Corresponds to the returning type of the your data that your preloader implements</typeparam>
+        /// <param name="preloaderName">An alias of your preloader implementation you want to get data</param>
         /// <returns></returns>
-        bool TryGetPreLoadedData<T>(string preloaderName, out T value, PreLoadParameters parameters = null);
+        bool TryGetPreLoadedData<TResponse>(string preloaderName, out TResponse value, PreLoadParameters parameters = null);
 
         /// <summary>
-        /// Retorna os dados da ultima execucao do PreLoader, caso haja um.
+        /// Retorna os dados da ultima execucao do PreLoader informado, caso haja um.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="preloaderName"></param>
+        /// <typeparam name="TResponse">Corresponds to the returning type of the your data that your preloader implements</typeparam>
+        /// <param name="preloaderName">An alias of your preloader implementation you want to get data from</param>
         /// <returns></returns>
-        T GetPreLoadedData<T>(string preloaderName, PreLoadParameters parameters = null);
+        TResponse GetPreLoadedData<TResponse>(string preloaderName, PreLoadParameters parameters = null);
 
         /// <summary>
-        /// Remove os dados resultantes da ultima invocacao do PreLoader do cache, caso ainda nao tenham sido expirado.
+        /// Remove os dados resultantes da ultima invocacao do PreLoader do cache, caso ainda nao tenham sido expirados.
         /// </summary>
-        /// <param name="preloaderName"></param>
+        /// <param name="preloaderName">An alias of your preloader implementation you want to remove from cache</param>
         void Remove(string preloaderName);
 
         /// <summary>
-        /// Remove do gerenciador de preloaders todos os dados em cache das invocacoes de PreLoaders que ainda estão na memoria.
+        /// Remove from the preloader service all Preloader's cached data.
         /// </summary>
         void RemoveAll();
     }

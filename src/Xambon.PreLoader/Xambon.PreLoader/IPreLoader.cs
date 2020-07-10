@@ -16,16 +16,22 @@ namespace Xambon.PreLoader
         string GetKey(PreLoadParameters parameters);
     }
 
+
+    /// <summary>
+    /// Every data that needs to be cache in a preloader service must implement this interface. 
+    /// </summary>
+    /// <typeparam name="TResponse">Corresponds to the returning type of the your data that this preloader returns</typeparam>
     public interface IPreLoader<TResponse> 
     {
         /// <summary>
-        /// Tempo de vida do objeto retornado em <see cref="GetData(PreLoadParameters)"/> na memória.
+        /// How long your data returned by <see cref="GetData(PreLoadParameters)"/> should be keep alive in the preloader service cache.
+        /// It is recomended a short interval, like one to a couple of minutes.
         /// </summary>
         /// <returns></returns>
         TimeSpan GetDataExpiration();
 
         /// <summary>
-        /// Busca os dados para popular o cache do PreLoader e retorna em um Observable.
+        /// Gets the actual data that will be cached in the preloader service. 
         /// </summary>
         /// <param name="parameters"></param>
         /// <returns></returns>

@@ -25,6 +25,5 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Xambon.PreLoader\Xambon.PreLoader\Xambon.PreLoader.csproj" />
-    <ProjectReference Include="..\..\..\Xambon.PreLoader\Xambon.PreLoader.Extensions\Xambon.PreLoader.Extensions.csproj" />
   </ItemGroup>
 </Project>

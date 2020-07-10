@@ -11,27 +11,27 @@ using Prism.Ioc;
 namespace Xambon.PreLoader
 {
    
-    public class PreLoaderCore
+    public class PreLoaderServiceCore
     {
         private  IContainerProvider containerResolver;
        
         private  System.Collections.Concurrent.ConcurrentDictionary<string, Type> preloadersContainer = new System.Collections.Concurrent.ConcurrentDictionary<string, Type>();
         private  IMemoryCache _cache;
-        private static PreLoaderCore _Instance;
-        internal static PreLoaderCore Instance
+        private static PreLoaderServiceCore _Instance;
+        internal static PreLoaderServiceCore Instance
         {
             get
             {
                 if (_Instance == null)
                 {
-                    _Instance = new PreLoaderCore();
+                    _Instance = new PreLoaderServiceCore();
                 }
                 return _Instance;
             }
         }
 
 
-        private PreLoaderCore()
+        private PreLoaderServiceCore()
         {
            
             containerResolver = Prism.PrismApplicationBase.Current.Container;  

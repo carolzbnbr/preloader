@@ -1,18 +1,25 @@
-<?xml version="1.0" encoding="utf-8"?>
-<package >
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
-    <id>Xambon.PreLoader</id>
-    <version>1.0.0</version>
-    <title>Xambon.PreLoader</title>
+    <id>xambon.preloader</id>
+    <version>1.0.0.28-pre</version>
+    <title>PreLoader for Xamarin Forms</title>
     <authors>carolzbnbr</authors>
     <owners>carolzbnbr</owners>
+    <developmentDependency>true</developmentDependency>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
-    <projectUrl>https://github.com/xambon/preloader</projectUrl>
-    <!-- <iconUrl>http://icon_url_here_or_delete_this_line/</iconUrl> -->
-    <description>PreLoader helps you to pre load your app data before a page navigation is requested, speeding up your Xamarin.Forms pages load performance.</description>
-    <releaseNotes>Initial Version</releaseNotes>
-    <copyright>Copyright 2020 Xambon (Ana Carolina Zambon)</copyright>
-    <tags>preloader xambon.preloader data pre loader prism navigation app performance xamarin forms navigation carolzbnbr </tags>
+    <projectUrl>https://github.com/carolzbnbr/preloader</projectUrl>
+    <description>PreLoader helps you to pre load data to memory before user navigates to its destination page, helping to speed up your Xamarin.Forms App's page loading.</description>
+    <releaseNotes>Pre release version</releaseNotes>
+    <copyright>Copyright 2020 carolzbnbr (Ana Carolina Zambon)</copyright>
+    <tags>preloader xambon.preloader data pre loader prism navigation app performance xamarin forms navigation carolzbnbr</tags>
+    <dependencies>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="Microsoft.Extensions.Caching.Memory" version="3.1.5" exclude="Build,Analyzers" />
+        <dependency id="Prism.Forms" version="7.2.0.1422" exclude="Build,Analyzers" />
+        <dependency id="System.Reactive" version="4.1.5" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
   </metadata>
 </package>
