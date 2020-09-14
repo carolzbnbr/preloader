@@ -4,7 +4,7 @@
 
 ## As the name implies, it helps you to pre load data used by your xamarin forms app page gets called.
 
-
+I've wrote an [article](http://www.thenextloop.com/2020/08/29/how-to-make-your-mobile-apps-improve-responsiveness-between-page-navigations/) on my [blog](http://www.thenextloop.com) explaining why you should consider a preloader.
 
 ## What does that mean?
 In a regular Xamarin Forms application, every time a page is loaded (navigated to), some data needs to be loaded from a remote source, or even from a disk, to fill up Xaml's Views.
